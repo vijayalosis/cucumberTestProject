@@ -1,4 +1,4 @@
-name: CI - Run Selenium Tests
+name: CICD - Run Selenium Tests
 
 on:
   push:
@@ -25,7 +25,7 @@ jobs:
 
       - name: Upload Cucumber Report
         if: always()
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: cucumber-html-report
           path: target/CucumberReports/Cucumber-reports.html
