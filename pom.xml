@@ -20,7 +20,7 @@
 
 	<dependencies>
 
-		<!--https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-java -->
+		<!--https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-java v4.34.0-->
 		<dependency>
 			<groupId>org.seleniumhq.selenium</groupId>
 			<artifactId>selenium-java</artifactId>

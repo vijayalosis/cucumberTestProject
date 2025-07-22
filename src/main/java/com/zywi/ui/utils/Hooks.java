@@ -19,7 +19,7 @@ public class Hooks extends BaseClass {
 
     private static final Logger logger = LogManager.getLogger(Hooks.class);
     
-    // Suite-level tracking
+    // Suite level tracking
     private static String suiteTagName = "";
     private static boolean isSuiteStarted = false;
     private static LocalDateTime suiteStartTime;
