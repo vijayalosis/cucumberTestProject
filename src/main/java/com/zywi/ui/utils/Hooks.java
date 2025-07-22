@@ -4,6 +4,7 @@ import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import io.cucumber.java.*;
 
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -155,8 +156,14 @@ public class Hooks extends BaseClass {
 	        );
 	        System.out.println(scenarioSummary);
 	        System.out.println("\u001B[34m==================================\u001B[0m\n");
+	        
+	        // Ensure target/logs directory exists before writing the log file
+	        File logsDir = new File("target/logs");
+	        if (!logsDir.exists()) {
+	            logsDir.mkdirs();
+	        }
 
-	        // ✅ Log to file
+	        //  Log execution summary to file
 	        try (PrintWriter writer = new PrintWriter(new FileWriter("target/logs/automation.log", true))) {
 	            writer.println();
 	            writer.println("===== TEST EXECUTION SUMMARY ===============");
@@ -172,7 +179,7 @@ public class Hooks extends BaseClass {
 	        }
 
 	    } else {
-	        // ✅ Null check fallback logging
+	        //  Null check fallback logging
 	        System.out.println("Start time is null. Execution duration skipped.");
 	        logger.warn("Start time is null. Cannot compute test suite duration.");
 	    }

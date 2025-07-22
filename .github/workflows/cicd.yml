@@ -11,16 +11,16 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
+      - name:  Checkout code
         uses: actions/checkout@v3
 
-      - name: Set up Java 17
+      - name:  Set up Java 17
         uses: actions/setup-java@v3
         with:
           java-version: '17'
           distribution: 'temurin'
 
-      - name: Cache Maven packages
+      - name:  Cache Maven packages
         uses: actions/cache@v3
         with:
           path: ~/.m2/repository
@@ -28,23 +28,24 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-maven-
 
-      - name: Run Cucumber Tests
+      - name:  Run Cucumber Tests with Maven
         run: mvn clean test
 
-      - name: Print Maven Test Logs on Failure
+      - name:  Print Maven Test Logs on Failure
         if: failure()
         run: cat target/surefire-reports/*.txt || true
 
-      - name: Upload Cucumber HTML Report
+      - name:  Upload Cucumber HTML Report
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: cucumber-html-report
           path: target/CucumberReports/Cucumber-reports.html
 
-      - name: Upload Full Test Output (target/)
+      - name:  Upload Automation Logs (target/logs/)
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: full-test-output
-          path: target/
+          name: automation-logs
+          path: target/logs/
+
