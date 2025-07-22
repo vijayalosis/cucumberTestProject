@@ -174,8 +174,6 @@
 			<version>1.17.2</version>
 		</dependency>
 
-		
-
 
 	</dependencies>
 
@@ -227,22 +225,32 @@
 				</plugin>
 			</plugins>
 		</pluginManagement>
-		
-	<!-- This section to actually enable Surefire -->
-    <plugins>
-        <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-surefire-plugin</artifactId>            
-            <configuration>
-                <includes>
-                    <include>**/TestRunner*</include>
-                </includes>
-            </configuration>
-        </plugin>
-    </plugins>
-		
+
+		<!-- This section to actually enable Surefire -->
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<configuration>
+					<includes>
+						<include>**/TestRunner*</include>
+					</includes>
+				</configuration>
+			</plugin>
+		</plugins>
+
+
+		<testResources>
+			<testResource>
+				<directory>src/test/resources</directory>
+				<includes>
+					<include>**/*.feature</include>
+				</includes>
+			</testResource>
+		</testResources>
+
+
 	</build>
 
-	
 
 </project>
