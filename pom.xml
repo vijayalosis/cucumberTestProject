@@ -228,14 +228,14 @@
 			</plugins>
 		</pluginManagement>
 		
-		<!-- This section to actually enable Surefire -->
+	<!-- This section to actually enable Surefire -->
     <plugins>
         <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-surefire-plugin</artifactId>            
             <configuration>
                 <includes>
-                    <include>**/TestRunner*.class</include>
+                    <include>**/TestRunner*</include>
                 </includes>
             </configuration>
         </plugin>
