@@ -37,7 +37,7 @@ public class BaseClass {
 	public void loadConfig() {
 		try {
 			prop = new Properties();
-			File propFile = new File(System.getProperty(USER_DIR) + "//src//test//resource//Config//config.properties");
+			File propFile = new File(System.getProperty(USER_DIR) + "//src//test//resources//Config//config.properties");
 			System.out.println("The properties file is: " + propFile);
 			FileInputStream filePath = new FileInputStream(propFile);
 			prop.load(filePath);
