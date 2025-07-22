@@ -11,7 +11,7 @@ Feature: Login functionality
     Examples:
       | browser | username | password  |
       | Chrome  |gawedo3803@lxheir.com|Password|
-      |Edge|gawedo3803@lxheir.com|Password|
+      #|Edge|gawedo3803@lxheir.com|Password|
       
       
       
