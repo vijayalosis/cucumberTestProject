@@ -10,8 +10,8 @@ Feature: Login functionality
 
     Examples:
       | browser | username | password  |
-      | chrome  |gawedo3803@lxheir.com|Password|
-      |edge|gawedo3803@lxheir.com|Password|
+      | Chrome  |gawedo3803@lxheir.com|Password|
+      |Edge|gawedo3803@lxheir.com|Password|
       
       
       

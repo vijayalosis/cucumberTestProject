@@ -20,8 +20,20 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
 
+      - name: Cache Maven packages
+        uses: actions/cache@v3
+        with:
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+          restore-keys: |
+            ${{ runner.os }}-maven-
+
       - name: Run Cucumber Tests
         run: mvn clean test
+
+      - name: Print Maven Test Logs on Failure
+        if: failure()
+        run: cat target/surefire-reports/*.txt || true
 
       - name: Upload Cucumber HTML Report
         if: always()
@@ -29,3 +41,10 @@ jobs:
         with:
           name: cucumber-html-report
           path: target/CucumberReports/Cucumber-reports.html
+
+      - name: Upload Full Test Output (target/)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: full-test-output
+          path: target/

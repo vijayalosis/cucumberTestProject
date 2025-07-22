@@ -121,50 +121,80 @@ public class BaseClass {
 	}
 	
 	/**
-	 * ChromeOptions with headless toggle based on config
-	 * 
-	 * @return ChromeOptions
+	 * ChromeOptions with support for headless execution and CI/CD environments.
+	 * Adds common flags to stabilize test runs and improve compatibility.
+	 *
+	 * @return ChromeOptions configured for local or CI execution
 	 */
 	private ChromeOptions getChromeOptions() {
-		ChromeOptions options = new ChromeOptions();
-		String headless = prop.getProperty("headless.mode", "false");
+	    ChromeOptions options = new ChromeOptions();
+	    // Fetch headless mode value from config.properties file
+	    String headless = prop.getProperty("headless.mode", "false");
+	 // Enable headless mode and common CI flags if either headless mode is true or tests are running on CI
+	    if (headless.equalsIgnoreCase("true") || isRunningOnCI()) {
+	        // Headless mode for CI (no browser UI)
+	        options.addArguments("--headless=new"); // modern headless mode (recommended)
+	        options.addArguments("--disable-gpu"); // disables GPU hardware acceleration
+	        options.addArguments("--no-sandbox"); // needed for Linux-based CI systems
+	        options.addArguments("--disable-dev-shm-usage"); // prevent crashes due to small /dev/shm
+	    }
 
-		if (headless.equalsIgnoreCase("true")) {
-			options.addArguments("--headless=new", "--disable-gpu", "--no-sandbox", "--disable-dev-shm-usage");
-		}
+	    // Explanation: These two lines help reduce detection by websites 
+	    // or avoid issues in headless test environments and make ChromeDriver less detectable and avoid conflicts
+	    
+	    // Removes the "Chrome is being controlled by automated test software" message
+	    options.setExperimentalOption("excludeSwitches", new String[]{"enable-automation"});
 
-		return options;
+	    // Disables the automation extension used by older versions of ChromeDriver
+	    // Helps avoid detection and also fixes random automation issues
+	    options.setExperimentalOption("useAutomationExtension", false);
+
+	    return options;
 	}
+
+
 	
+
 	/**
-	 * FirefoxOptions with headless toggle
-	 * 
+	 * FirefoxOptions with headless toggle and CI/CD-friendly settings.
+	 *
 	 * @return FirefoxOptions
 	 */
 	private FirefoxOptions getFirefoxOptions() {
-		FirefoxOptions options = new FirefoxOptions();
-		String headless = prop.getProperty("headless.mode", "false");
+	    FirefoxOptions options = new FirefoxOptions();
+	    String headless = prop.getProperty("headless.mode", "false");
 
-		if (headless.equalsIgnoreCase("true")) {
-			options.addArguments("-headless");
-		}
+	    if (headless.equalsIgnoreCase("true")) {
+	        // Headless mode for CI environments (no GUI)
+	        options.addArguments("-headless");
+	        options.addArguments("--disable-gpu");
+	        options.addArguments("--no-sandbox");
+	        options.addArguments("--disable-dev-shm-usage");
+	    }
 
-		return options;
+	    return options;
 	}
+
+	
 	
 	/**
-	 * EdgeOptions with headless toggle
-	 * 
+	 * EdgeOptions with headless toggle and CI/CD-safe flags.
+	 *
 	 * @return EdgeOptions
 	 */
 	private EdgeOptions getEdgeOptions() {
-		EdgeOptions options = new EdgeOptions();
-		String headless = prop.getProperty("headless.mode", "false");
+	    EdgeOptions options = new EdgeOptions();
+	    String headless = prop.getProperty("headless.mode", "false");
 
-		if (headless.equalsIgnoreCase("true")) {
-			options.addArguments("headless");
-		}
+	    if (headless.equalsIgnoreCase("true")) {
+	        // Note: Edge uses Chromium, so we use similar headless args
+	        options.addArguments("headless");
+	        options.addArguments("--disable-gpu");
+	        options.addArguments("--no-sandbox");
+	        options.addArguments("--disable-dev-shm-usage");
+	    }
 
-		return options;
+	    return options;
 	}
+
 }
