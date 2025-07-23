@@ -4,7 +4,10 @@ on:
   push:
     branches: [ main ]
   pull_request:
-    branches: [ main ]
+    branches: [ main ]	
+  workflow_dispatch: # Manual Trigger Enabled
+  schedule:
+  - cron: '0 12 * * 1-5' # Auto run at 7 AM EST (Mon–Fri)	
 
 jobs:
   run-tests:
