@@ -3,18 +3,14 @@ package com.zywi.ui.utils;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import io.cucumber.java.*;
-
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.time.Duration;
-import java.time.Instant;
 import java.time.LocalDateTime;
-import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -143,7 +139,7 @@ public class Hooks extends BaseClass {
 	        long minutes = duration.toMinutes();
 	        long seconds = duration.minusMinutes(minutes).getSeconds();
 
-	        // ✅ Print formatted summary to console
+	        // Print formatted summary to console
 	        System.out.println("\u001B[34m===== TEST EXECUTION SUMMARY =====\u001B[0m");
 	        System.out.println("\u001B[36mTest Suite Name: \u001B[0m     " + suiteTagName);
 	        System.out.println("\u001B[36mTest Start Time: \u001B[0m     " + formatDateTime(suiteStartTime));

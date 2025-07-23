@@ -36,9 +36,11 @@ jobs:
         run: mvn clean test
 
       # Log the time of execution in three time zones: UTC, IST, and EST
-      - name: Show Time of Execution (UTC, IST, EST)
+      - name: Show Time of Execution (UTC, IST, EST) in Test Summary Log
         run: |
-         echo "=== Execution Time Logs ==="
+         {
+         echo ""
+         echo "=== Automation Execution Timestamp ==="
 
          # Print current time in Coordinated Universal Time (UTC)
          # This is the default timezone used by GitHub Actions
@@ -51,6 +53,8 @@ jobs:
          # Print current time in Eastern Time (EST/EDT)
          # Useful for teams based in US Eastern time zone
          echo "EST Time    : $(TZ='America/New_York' date '+%Y-%m-%d %H:%M:%S %Z')"
+         echo "=========================================="
+         } >> target/logs/automation.log
 
       - name:  Print Maven Test Logs on Failure
         if: failure()
