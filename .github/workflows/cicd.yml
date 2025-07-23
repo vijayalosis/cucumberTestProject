@@ -35,6 +35,23 @@ jobs:
       - name:  Run Cucumber Tests with Maven
         run: mvn clean test
 
+      # Log the time of execution in three time zones: UTC, IST, and EST
+      - name: Show Time of Execution (UTC, IST, EST)
+        run: |
+         echo "=== Execution Time Logs ==="
+
+         # Print current time in Coordinated Universal Time (UTC)
+         # This is the default timezone used by GitHub Actions
+         echo "UTC Time    : $(date -u '+%Y-%m-%d %H:%M:%S %Z')"
+
+         # Print current time in Indian Standard Time (IST)
+         # Useful for QA/Dev teams based in India
+         echo "IST Time    : $(TZ='Asia/Kolkata' date '+%Y-%m-%d %H:%M:%S %Z')"
+
+         # Print current time in Eastern Time (EST/EDT)
+         # Useful for teams based in US Eastern time zone
+         echo "EST Time    : $(TZ='America/New_York' date '+%Y-%m-%d %H:%M:%S %Z')"
+
       - name:  Print Maven Test Logs on Failure
         if: failure()
         run: cat target/surefire-reports/*.txt || true
